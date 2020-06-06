@@ -6,6 +6,12 @@
 #export BORG_PASSPHRASE=""
 #export BORG_KEY_FILE=""
 
+# backup name
+# by default this uses the date in YYYY-MM-DD format, assuming a daily backup;
+# if backups are to be executed more frequently, then the format must be changed to avoid name conflicts
+# in example by adding hours or minutes
+BACKUP_NAME="$(date +'%Y-%m-%d')"
+
 # backup details
 BACKUP_TARGETS="/docker /etc"
 BACKUP_OPTS="-s --show-rc -x --exclude '/etc/shadow*'"

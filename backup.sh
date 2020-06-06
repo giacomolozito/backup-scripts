@@ -46,8 +46,7 @@ for f in ${BACKUP_TOOLSDIR}/scripts/pre_*; do
 done
 
 # run backup
-DATE_TODAY=$(date +'%Y-%m-%d')
-borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${DATE_TODAY} ${BACKUP_TARGETS}
+borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${BACKUP_NAME} ${BACKUP_TARGETS}
 
 # run post scripts, if present and set as executable
 for f in ${BACKUP_TOOLSDIR}/scripts/post_*; do
