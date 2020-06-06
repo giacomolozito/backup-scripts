@@ -1,6 +1,12 @@
 #!/bin/bash
 
-BACKUP_PASSPHRASE="xxx"
+# if borg passphrase or custom key file location are required, specify them here
+# also see https://borgbackup.readthedocs.io/en/stable/usage/general.html#environment-variables
+# for other vriables
+#export BORG_PASSPHRASE=""
+#export BORG_KEY_FILE=""
+
+# backup details
 BACKUP_TARGETS="/docker /etc"
 BACKUP_OPTS="-s --show-rc -x --exclude '/etc/shadow*'"
 BACKUP_OPTS_RETENTION="--keep-daily 14 --keep-monthly 6"

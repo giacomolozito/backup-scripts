@@ -25,7 +25,6 @@ for f in ${BACKUP_TOOLSDIR}/scripts/pre_*; do
 done
 
 # run backup
-export BORG_PASSPHRASE=${BACKUP_PASSPHRASE}
 DATE_TODAY=$(date +'%Y-%m-%d')
 borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${DATE_TODAY} ${BACKUP_TARGETS} 2>> ${BACKUP_LOG}
 
