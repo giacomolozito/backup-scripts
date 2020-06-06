@@ -2,7 +2,7 @@
 
 # if borg passphrase or custom key file location are required, specify them here
 # also see https://borgbackup.readthedocs.io/en/stable/usage/general.html#environment-variables
-# for other vriables
+# for other variables
 #export BORG_PASSPHRASE=""
 #export BORG_KEY_FILE=""
 

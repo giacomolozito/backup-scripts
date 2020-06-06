@@ -1,6 +1,6 @@
-# borg-scripts
+# backup-scripts
 
-Set of bash scripts to simplify backups with [borg](https://www.borgbackup.org/).  
+Set of bash scripts to manage scheduled backups with [Borg](https://www.borgbackup.org/).  
 These are for my personal use, but shared with the open source community in case anyone finds them useful.
 
 ### Setup
@@ -13,7 +13,7 @@ mkdir -p /backup
 borg init -e ENCRYPTION /backup/repo
 ```
 
-Then clone the repo under `/backup/borg-scripts` and rename `backup.sh.cfg.example` to `backup.sh.cfg`, configuring the values as desired (borg passphrase for the repo, directories of the machine to backup, etc.).
+Then clone the repo under `/backup/backup-scripts` and rename `backup.sh.cfg.example` to `backup.sh.cfg`, configuring the values as desired (borg passphrase for the repo, directories of the machine to backup, etc.).
 
 ### Scheduled run
 
@@ -21,4 +21,4 @@ On distributions with systemd, the scheduled run can be configured used the time
 
 ### Pre/Post scripts
 
-Before and after the backup is executed, scripts can be run by placing them in the scripts.d dir with a pre_ or post_ prefix. Some example scripts are provided in scripts.avail and can be symlinked in script.d for inclusion in the run. These can be used to offload the backup somewhere, perform preparation and cleanup actions, etc.
+Before and after the backup is executed, scripts can be run by placing them in the scripts.d dir with a pre_ or post_ prefix. Some example scripts are provided in scripts.avail and can be symlinked in script.d for inclusion in the run. These perform a variety of tasks such as offloading backups somewhere else, performing preparation and cleanup actions, etc.

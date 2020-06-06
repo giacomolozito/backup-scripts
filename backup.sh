@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Giacomo.Lozito@gmail.com - simple backup script with borg backup
+# Giacomo.Lozito@gmail.com - backup scripts using Borg backup
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 BACKUP_ROOT=/backup
 BACKUP_REPO=${BACKUP_ROOT}/repo
-BACKUP_TOOLSDIR=${BACKUP_ROOT}/borg-scripts
+BACKUP_TOOLSDIR=${BACKUP_ROOT}/backup-scripts
 BACKUP_LOG=${BACKUP_TOOLSDIR}/backup.log
 BACKUP_CFG=${BACKUP_TOOLSDIR}/backup.sh.cfg
 BACKUP_RESULT=0 # changes to 1 if "completed with warnings", 2 if "failed"
