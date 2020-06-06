@@ -7,9 +7,15 @@ BACKUP_ROOT=/backup
 BACKUP_REPO=${BACKUP_ROOT}/repo
 BACKUP_TOOLSDIR=${BACKUP_ROOT}/borg-scripts
 BACKUP_LOG=${BACKUP_TOOLSDIR}/backup.log
+BACKUP_CFG=${BACKUP_TOOLSDIR}/backup.sh.cfg
 
 # add backup_config
-source ${BACKUP_TOOLSDIR}/backup.sh.cfg
+if [ -f "${BACKUP_CFG}" ]; then
+  source ${BACKUP_CFG}
+else
+  echo "Config file ${BACKUP_CFG} not found. Exiting."
+  exit 1
+fi
 
 # run pre scripts, if present and set as executable
 for f in ${BACKUP_TOOLSDIR}/scripts/pre_*; do
