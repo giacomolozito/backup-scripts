@@ -22,8 +22,6 @@ done
 export BORG_PASSPHRASE=${BACKUP_PASSPHRASE}
 DATE_TODAY=$(date +'%Y-%m-%d')
 borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${DATE_TODAY} ${BACKUP_TARGETS} 2>> ${BACKUP_LOG}
-# prune old backups
-borg prune ${BACKUP_OPTS_RETENTION} ${BACKUP_REPO}
 
 # run post scripts, if present and set as executable
 for f in ${BACKUP_TOOLSDIR}/scripts/post_*; do
