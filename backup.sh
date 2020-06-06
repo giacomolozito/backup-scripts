@@ -21,6 +21,7 @@ BACKUP_REPO=${BACKUP_ROOT}/repo
 BACKUP_TOOLSDIR=${BACKUP_ROOT}/borg-scripts
 BACKUP_LOG=${BACKUP_TOOLSDIR}/backup.log
 BACKUP_CFG=${BACKUP_TOOLSDIR}/backup.sh.cfg
+BACKUP_RESULT=0 # changes to 1 if "completed with warnings", 2 if "failed"
 
 # redirect standard output and error to log
 touch ${BACKUP_LOG}
@@ -50,6 +51,9 @@ done
 
 # run backup
 borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${BACKUP_NAME} ${BACKUP_TARGETS}
+if [ $? != 0 ]; then
+  BACKUP_RESULT=2
+fi
 
 # run post scripts, if present and set as executable
 for f in ${BACKUP_TOOLSDIR}/scripts.d/post_*; do
@@ -57,5 +61,17 @@ for f in ${BACKUP_TOOLSDIR}/scripts.d/post_*; do
     source $f
   fi
 done
+
+case $BACKUP_RESULT in
+0)
+  log "BACKUP" "backup successful"
+  ;;
+1)
+  log "BACKUP" "backup completed with warnings"
+  ;;
+*) 
+  log "BACKUP" "backup failed with errors"
+  ;;
+esac
 
 log "BACKUP" "script completed"
