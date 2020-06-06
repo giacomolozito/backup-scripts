@@ -27,14 +27,17 @@ touch ${BACKUP_LOG}
 exec 1>>${BACKUP_LOG}
 exec 2>&1
 
-echo "---"
-echo "$(date +'%Y-%m-%d %H:%M') - BACKUP: script started"
+function log {
+  echo "$(date +'%Y-%m-%d %H:%M:%S') - $1: $2"
+}
+
+log "BACKUP" "script started"
 
 # add backup_config
 if [ -f "${BACKUP_CFG}" ]; then
   source ${BACKUP_CFG}
 else
-  echo "Config file ${BACKUP_CFG} not found. Exiting."
+  log "BACKUP" "Config file ${BACKUP_CFG} not found. Exiting."
   exit 1
 fi
 
@@ -55,4 +58,4 @@ for f in ${BACKUP_TOOLSDIR}/scripts.d/post_*; do
   fi
 done
 
-echo "$(date +'%Y-%m-%d %H:%M') - BACKUP: script completed"
+log "BACKUP" "script completed"

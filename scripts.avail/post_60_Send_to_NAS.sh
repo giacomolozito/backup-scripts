@@ -5,11 +5,11 @@
 # send the backup repository to the NAS via FTP
 # (note: this users lftp, rsync is a lot better if your NAS supports it)
 
-echo "$(date +'%Y-%m-%d %H:%M') - NAS_SEND: archiving backup before sending to NAS"
+log "NAS_SEND" "archiving backup before sending to NAS"
 rm -f ${BACKUP_ROOT}/archive.tar
 tar cf ${BACKUP_ROOT}/archive.tar ${BACKUP_REPO}
 
-echo "$(date +'%Y-%m-%d %H:%M') - NAS_SEND: sending archive.tar to NAS via FTP"
+log "NAS_SEND" "sending archive.tar to NAS via FTP"
 lftp ${BACKUP_NAS_HOST} << EOF
 set ftp:ssl-force true
 ${BACKUP_NAS_LFTPEXTRAOPTS}
@@ -21,4 +21,4 @@ bye
 EOF
 
 rm -f ${BACKUP_ROOT}/archive.tar
-echo "$(date +'%Y-%m-%d %H:%M') - NAS_SEND: archive sent to NAS"
+log "NAS_SEND" "archive sent to NAS"
