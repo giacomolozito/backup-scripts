@@ -1,0 +1,8 @@
+[Unit]
+Description=Run borg-backup-sched every night at 2AM
+
+[Timer]
+OnCalendar=*-*-* 2:00:00
+
+[Install]
+WantedBy=timers.target

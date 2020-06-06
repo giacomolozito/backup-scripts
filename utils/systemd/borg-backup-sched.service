@@ -1,0 +1,5 @@
+[Unit]
+Description=Scheduled backups with borg
+
+[Service]
+ExecStart=/backup/borg-scripts/backup.sh
