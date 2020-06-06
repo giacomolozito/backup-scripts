@@ -6,3 +6,6 @@
 
 log "DOCKER_INSPECT" "saving container definition"
 docker ps -a -q | xargs docker inspect > /docker/docker_inspect.dump
+if [ $? != 0 ]; then
+  set_backup_result 1
+fi

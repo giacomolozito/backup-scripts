@@ -8,6 +8,9 @@
 log "NAS_SEND" "archiving backup before sending to NAS"
 rm -f ${BACKUP_ROOT}/archive.tar
 tar cf ${BACKUP_ROOT}/archive.tar ${BACKUP_REPO}
+if [ $? != 0 ]; then
+  set_backup_result 1
+fi
 
 log "NAS_SEND" "sending archive.tar to NAS via FTP"
 lftp ${BACKUP_NAS_HOST} << EOF
@@ -19,6 +22,9 @@ cd ${BACKUP_NAS_PATH}
 put ${BACKUP_ROOT}/archive.tar
 bye
 EOF
+if [ $? != 0 ]; then
+  set_backup_result 1
+fi
 
 rm -f ${BACKUP_ROOT}/archive.tar
 log "NAS_SEND" "archive sent to NAS"

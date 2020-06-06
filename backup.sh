@@ -31,6 +31,11 @@ exec 2>&1
 function log {
   echo "$(date +'%Y-%m-%d %H:%M:%S') - $1: $2"
 }
+function set_backup_result {
+  if [ $BACKUP_RESULT -lt $1 ]; then
+    BACKUP_RESULT=$1
+  fi
+}
 
 log "BACKUP" "script started"
 
@@ -52,7 +57,7 @@ done
 # run backup
 borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${BACKUP_NAME} ${BACKUP_TARGETS}
 if [ $? != 0 ]; then
-  BACKUP_RESULT=2
+  set_backup_result 2
 fi
 
 # run post scripts, if present and set as executable
