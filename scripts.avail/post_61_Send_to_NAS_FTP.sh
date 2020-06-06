@@ -7,24 +7,24 @@
 
 # only execute if no errors were encountered
 if [ $BACKUP_RESULT -gt 1 ]; then
-  log "NAS_SEND" "skipping NAS send due to earlier errors"
+  log "NAS_SEND_FTP" "skipping NAS send due to earlier errors"
   return
 fi
 
-log "NAS_SEND" "archiving backup before sending to NAS"
+log "NAS_SEND_FTP" "archiving backup before sending to NAS"
 rm -f ${BACKUP_ROOT}/archive.tar
 tar cf ${BACKUP_ROOT}/archive.tar ${BACKUP_REPO}
 if [ $? != 0 ]; then
   set_backup_result 1
 fi
 
-log "NAS_SEND" "sending archive.tar to NAS via FTP"
-lftp ${BACKUP_NAS_HOST} << EOF
+log "NAS_SEND_FTP" "sending archive.tar to NAS via FTP"
+lftp ${BACKUP_NAS_FTP_HOST} << EOF
 set ftp:ssl-force true
-${BACKUP_NAS_LFTPEXTRAOPTS}
-user ${BACKUP_NAS_USER} ${BACKUP_NAS_PASS}
-mkdir -fp ${BACKUP_NAS_PATH}
-cd ${BACKUP_NAS_PATH}
+${BACKUP_NAS_FTP_LFTPEXTRACMD}
+user ${BACKUP_NAS_FTP_USER} ${BACKUP_NAS_FTP_PASS}
+mkdir -fp ${BACKUP_NAS_FTP_PATH}
+cd ${BACKUP_NAS_FTP_PATH}
 put ${BACKUP_ROOT}/archive.tar
 bye
 EOF
@@ -33,4 +33,4 @@ if [ $? != 0 ]; then
 fi
 
 rm -f ${BACKUP_ROOT}/archive.tar
-log "NAS_SEND" "archive sent to NAS"
+log "NAS_SEND_FTP" "archive sent to NAS"
