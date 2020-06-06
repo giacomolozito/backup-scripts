@@ -55,6 +55,7 @@ for f in ${BACKUP_TOOLSDIR}/scripts.d/pre_*; do
 done
 
 # run backup
+log "BACKUP" "creating new backup ${BACKUP_NAME} with borg"
 borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${BACKUP_NAME} ${BACKUP_TARGETS}
 if [ $? != 0 ]; then
   set_backup_result 2
