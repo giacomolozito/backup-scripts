@@ -21,4 +21,4 @@ On distributions with systemd, the scheduled run can be configured used the time
 
 ### Pre/Post scripts
 
-Before and after the backup is executed, scripts can be run by placing them in the scripts dir with a pre_ or post_ prefix and setting them as executable. These can be used to offload the backup somewhere, perform preparation and cleanup actions, etc.
+Before and after the backup is executed, scripts can be run by placing them in the scripts.d dir with a pre_ or post_ prefix. Some example scripts are provided in scripts.avail and can be symlinked in script.d for inclusion in the run. These can be used to offload the backup somewhere, perform preparation and cleanup actions, etc.

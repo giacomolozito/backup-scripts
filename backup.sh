@@ -3,16 +3,16 @@
 # Giacomo.Lozito@gmail.com - simple backup script with borg backup
 # 
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by             
-# the Free Software Foundation, either version 3 of the License, or                                                                                                    
-# (at your option) any later version.                                                                                                                                  
-#                                                                                  
-# This program is distributed in the hope that it will be useful,                                                                                                      
-# but WITHOUT ANY WARRANTY; without even the implied warranty of                                                                                                       
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#  
+# This program is distributed in the hope that it will be useful, 
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.                                                                                                                         
-#                                                                                  
-# You should have received a copy of the GNU General Public License       
+# GNU General Public License for more details.
+#  
+# You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
@@ -28,7 +28,7 @@ exec 1>>${BACKUP_LOG}
 exec 2>&1
 
 echo "---"
-echo "Backup started at $(date)"
+echo "$(date +'%Y-%m-%d %H:%M') - BACKUP: script started"
 
 # add backup_config
 if [ -f "${BACKUP_CFG}" ]; then
@@ -39,8 +39,8 @@ else
 fi
 
 # run pre scripts, if present and set as executable
-for f in ${BACKUP_TOOLSDIR}/scripts/pre_*; do
-  if [[ -x "$f" ]]; then
+for f in ${BACKUP_TOOLSDIR}/scripts.d/pre_*; do
+  if [ -e $f ]; then
     source $f
   fi
 done
@@ -49,9 +49,10 @@ done
 borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${BACKUP_NAME} ${BACKUP_TARGETS}
 
 # run post scripts, if present and set as executable
-for f in ${BACKUP_TOOLSDIR}/scripts/post_*; do
-  if [[ -x "$f" ]]; then
+for f in ${BACKUP_TOOLSDIR}/scripts.d/post_*; do
+  if [ -e $f ]; then
     source $f
   fi
 done
 
+echo "$(date +'%Y-%m-%d %H:%M') - BACKUP: script completed"

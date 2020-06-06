@@ -15,4 +15,13 @@ BACKUP_NAME="$(date +'%Y-%m-%d')"
 # backup details
 BACKUP_TARGETS="/docker /etc"
 BACKUP_OPTS="-s --show-rc -x --exclude '/etc/shadow*'"
+
+# options used by the purge post script
 BACKUP_OPTS_RETENTION="--keep-daily 14 --keep-monthly 6"
+
+# options used by the nas post script
+BACKUP_NAS_HOST=""
+BACKUP_NAS_USER=""
+BACKUP_NAS_PASS=""
+BACKUP_NAS_PATH=""
+BACKUP_NAS_LFTPEXTRAOPTS=""
