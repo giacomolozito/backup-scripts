@@ -5,6 +5,12 @@
 # send the backup repository to the NAS via FTP
 # (note: this users lftp, rsync is a lot better if your NAS supports it)
 
+# only execute if no errors were encountered
+if [ $BACKUP_RESULT -gt 1 ]; then
+  log "NAS_SEND" "skipping NAS send due to earlier errors"
+  return
+fi
+
 log "NAS_SEND" "archiving backup before sending to NAS"
 rm -f ${BACKUP_ROOT}/archive.tar
 tar cf ${BACKUP_ROOT}/archive.tar ${BACKUP_REPO}
