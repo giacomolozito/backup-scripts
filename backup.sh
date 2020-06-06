@@ -17,6 +17,11 @@ else
   exit 1
 fi
 
+# redirect standard output and error to log
+touch ${BACKUP_LOG}
+exec 1>>${BACKUP_LOG}
+exec 2>&1
+
 # run pre scripts, if present and set as executable
 for f in ${BACKUP_TOOLSDIR}/scripts/pre_*; do
   if [[ -x "$f" ]]; then
@@ -26,7 +31,7 @@ done
 
 # run backup
 DATE_TODAY=$(date +'%Y-%m-%d')
-borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${DATE_TODAY} ${BACKUP_TARGETS} 2>> ${BACKUP_LOG}
+borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${DATE_TODAY} ${BACKUP_TARGETS}
 
 # run post scripts, if present and set as executable
 for f in ${BACKUP_TOOLSDIR}/scripts/post_*; do
