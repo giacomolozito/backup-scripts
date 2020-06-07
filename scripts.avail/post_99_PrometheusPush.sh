@@ -3,6 +3,7 @@
 # this is meant to be sourced by backup.sh and will use variables defined there
 #
 # send backup result and statistics to a Prometheus Push Gateway
+# (also see utils/grafana for a dashboard reporting on these metrics)
 
 HOSTNAME=$(hostname)
 BACKUP_SIZE=$(du -d 0 -B K ${BACKUP_REPO} | cut -d 'K' -f 1)
