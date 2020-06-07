@@ -56,10 +56,14 @@ done
 
 # run backup
 log "BACKUP" "creating new backup ${BACKUP_NAME} with borg"
+BACKUP_TIME_START=$(date +%s)
 borg create ${BACKUP_OPTS} ${BACKUP_REPO}::${BACKUP_NAME} ${BACKUP_TARGETS}
 if [ $? != 0 ]; then
   set_backup_result 2
 fi
+BACKUP_TIME_END=$(date +%s)
+BACKUP_TIME_DURATION=$((BACKUP_TIME_END - BACKUP_TIME_START))
+log "BACKUP" "backup operation lasted ${BACKUP_TIME_DURATION} seconds"
 
 # run post scripts, if present and set as executable
 for f in ${BACKUP_TOOLSDIR}/scripts.d/post_*; do
