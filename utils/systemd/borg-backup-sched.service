@@ -2,4 +2,4 @@
 Description=Scheduled backups with borg
 
 [Service]
-ExecStart=/backup/borg-scripts/backup.sh
+ExecStart=/backup/backup-scripts/backup.sh
